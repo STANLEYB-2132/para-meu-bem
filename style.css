@@ -1,0 +1,229 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden { display: none; }
+.screen {
+  display: none;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+.screen.active {
+  display: flex;
+}
+
+/* Botões */
+button, .next-btn {
+  background: #ff69b4;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 10px 5px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+button:hover, .next-btn:hover {
+  background: #ff85c1;
+  transform: scale(1.05);
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Animação de digitação */
+.typing {
+  border-right: 3px solid white;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 4s steps(40, end) forwards, blink 0.7s infinite;
+  margin-bottom: 20px;
+}
+@keyframes typing { from { width: 0 } to { width: 100% } }
+@keyframes blink { 50% { border-color: transparent; } }
+
+/* Fade-in */
+.fade-in {
+  opacity: 0;
+  animation: fade 4s ease-in forwards;
+  animation-delay: 4.5s;
+  margin-bottom: 20px;
+}
+@keyframes fade { to { opacity: 1; } }
+
+/* Slideshow */
+.slideshow {
+  position: relative;
+  width: 90%;
+  max-width: 400px;
+  margin: 20px auto;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  z-index: 10;
+}
+.slideshow img {
+  width: 100%;
+  height: 70vh;
+  object-fit: cover;
+  display: none;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+}
+.slideshow img.active {
+  display: block;
+  animation: fadePhoto 2s;
+}
+@keyframes fadePhoto { from { opacity: 0; } to { opacity: 1; } }
+
+/* Carta */
+.letter-container {
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  height: 70vh;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.letter {
+  background: rgba(255, 255, 240, 0.95);
+  color: #2a2a2a;
+  padding: 25px;
+  border-radius: 15px;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  font-size: 1.1em;
+  text-align: left;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  animation: fade 2s ease-in;
+  overflow-y: auto;
+  position: relative;
+  border: 2px solid #ffb6c1;
+  box-sizing: border-box;
+}
+
+.letter::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(#ffb6c1 2px, transparent 2px),
+    radial-gradient(#ffb6c1 2px, transparent 2px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.letter h2 {
+  text-align: center;
+  color: #1e3c72;
+  margin-top: 0;
+  border-bottom: 1px solid #ffb6c1;
+  padding-bottom: 10px;
+}
+
+/* Animação de carta abrindo */
+.letter-opening {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s;
+}
+
+.letter-opening.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.envelope {
+  font-size: 8rem;
+  color: #ff6b95;
+  animation: pulse 1.5s infinite;
+  cursor: pointer;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Corações */
+.heart {
+  position: fixed;
+  top: -10px;
+  color: #ff69b4;
+  font-size: 24px;
+  animation: fall linear forwards;
+  z-index: 5;
+}
+@keyframes fall {
+  to { transform: translateY(100vh); opacity: 0; }
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  .slideshow img {
+    height: 60vh;
+  }
+  
+  .letter-container {
+    height: 65vh;
+  }
+  
+  .letter {
+    font-size: 1em;
+    padding: 20px;
+  }
+  
+  button, .next-btn {
+    padding: 10px 15px;
+    font-size: 0.9em;
+  }
+  
+  .envelope {
+    font-size: 6rem;
+  }
+}
